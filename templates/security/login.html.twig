@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<section class="vh-100 d-flex flex-column justify-content-between">
+    <div class="container-fluid h-custom my-auto py-4">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            
+            {# Illustration / Logo à gauche #}
+            <div class="col-md-9 col-lg-6 col-xl-5 text-center mb-4 mb-lg-0">
+                <img src="{{ asset('img/logo.jpg') }}" class="img-fluid rounded shadow-sm" alt="Logo" style="max-height: 400px; object-fit: contain;">
+            </div>
+
+            {# Formulaire de connexion à droite #}
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <div class="card border-0 shadow-lg text-start" style="background-color: #0a011f; color: #ffffff; border-radius: 12px;">
+                    <div class="card-body p-4 p-sm-5">
+                        
+                        <form method="post">
+                            <h2 class="h3 mb-4 font-weight-normal text-center fw-bold" style="color: #ffffff;">Connexion</h2>
+
+                            {# Gestion des erreurs #}
+                            {% if error %}
+                                <div class="alert alert-danger py-2" role="alert">
+                                    <small><i class="fas fa-exclamation-circle me-1"></i> {{ error.messageKey|trans(error.messageData, 'security') }}</small>
+                                </div>
+                            {% endif %}
+
+                            {# Notification si déjà connecté #}
+                            {% if app.user %}
+                                <div class="alert alert-info py-2 small mb-3">
+                                    Connecté en tant que <strong>{{ app.user.userIdentifier }}</strong>, 
+                                    <a href="{{ logout_path() }}" class="alert-link">Déconnexion</a>
+                                </div>
+                            {% endif %}
+
+                            {# Champ Email #}
+                            <div class="mb-3">
+                                <label for="username" class="form-label small fw-bold text-light">Adresse Email</label>
+                                <input type="email" 
+                                       value="{{ last_username }}" 
+                                       name="_username" 
+                                       id="username" 
+                                       class="form-control bg-light text-dark border-0" 
+                                       placeholder="nom@exemple.com"
+                                       autocomplete="email" 
+                                       required 
+                                       autofocus>
+                            </div>
+
+                            {# Champ Mot de passe #}
+                            <div class="mb-3">
+                                <label for="password" class="form-label small fw-bold text-light">Mot de passe</label>
+                                <input type="password" 
+                                       name="_password" 
+                                       id="password" 
+                                       class="form-control bg-light text-dark border-0" 
+                                       placeholder="••••••••"
+                                       autocomplete="current-password" 
+                                       required>
+                            </div>
+
+                            {# Jeton CSRF #}
+                            <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+                            {# Option Se souvenir de moi #}
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" name="_remember_me" id="_remember_me">
+                                <label class="form-check-label small text-light" for="_remember_me">
+                                    Se souvenir de moi
+                                </label>
+                            </div>
+
+                            {# Bouton de soumission et lien d'inscription #}
+                            <div class="text-center text-lg-start mt-4 pt-2">
+                                <button class="btn btn-primary btn-lg w-100 fw-bold shadow-sm" type="submit">
+                                    <i class="fas fa-sign-in-alt me-2"></i> Se connecter
+                                </button>
+                                
+                                <p class="small fw-bold mt-3 pt-1 mb-0 text-center text-light">
+                                    Vous n'avez pas de compte ? 
+                                    <a href="{{ path('app_register') }}" class="link-danger text-decoration-none">S'inscrire</a>
+                                </p>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {# Pied de page #}
+    <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-3 px-4 px-xl-5 bg-primary">
+        <div class="text-white mb-2 mb-md-0 small">
+            YOBS © {{ "now"|date("Y") }}. Tous droits réservés.
+        </div>
+
+        <div>
+            <a href="#!" class="text-white me-4"><i class="fab fa-facebook-f"></i></a>
+            <a href="#!" class="text-white me-4"><i class="fab fa-twitter"></i></a>
+            <a href="#!" class="text-white me-4"><i class="fab fa-google"></i></a>
+            <a href="#!" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+</section>
+{% endblock %}
