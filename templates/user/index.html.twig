@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création de compte{% endblock %}
+
+{% block body %}
+{% include "navbar.html.twig" %}
+
+<section class="py-5" style="background-color: #f8f9fa;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-9">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-body p-4 p-md-5">
+                        
+                        <h1 class="text-center fw-bold mb-4">Création du compte</h1>
+
+                        {# Affichage des erreurs globales du formulaire #}
+                        {% if form_errors(registrationForm) %}
+                            <div class="alert alert-danger mb-4">
+                                {{ form_errors(registrationForm) }}
+                            </div>
+                        {% endif %}
+
+                        {{ form_start(registrationForm) }}
+                            
+                            {# Ligne 1 : Nom & Email #}
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    {{ form_row(registrationForm.nom) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(registrationForm.email) }}
+                                </div>
+                            </div>
+
+                            {# Ligne 2 : Téléphone & Adresse #}
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    {{ form_row(registrationForm.telephone) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(registrationForm.adresse) }}
+                                </div>
+                            </div>
+
+                            {# Ligne 3 : Mot de passe & Rôle #}
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    {{ form_row(registrationForm.plainPassword) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(registrationForm.roles) }}
+                                </div>
+                            </div>
+
+                            {# Ligne 4 : Statut Actif #}
+                            <div class="row g-3 mb-4 align-items-center">
+                                <div class="col-md-6">
+                                    <div class="form-check mt-2">
+                                        {{ form_row(registrationForm.actif) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {# Bouton de soumission #}
+                            <div class="d-grid gap-2 col-md-6 mx-auto mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm">
+                                    <i class="fas fa-user-plus me-2"></i> Enregistrer
+                                </button>
+                            </div>
+
+                        {{ form_end(registrationForm) }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

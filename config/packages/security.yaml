@@ -36,7 +36,19 @@ security:
 
     # Note: Only the *first* matching rule is applied
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # 1. AUTORISER L'ACCÈS PUBLIC AUX ROUTES D'AUTHENTIFICATION (À PLACER EN PREMIER)
+        # - { path: ^/, roles: PUBLIC_ACCESS }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/logout$, roles: PUBLIC_ACCESS }
+        - { path: ^/reset-password, roles: PUBLIC_ACCESS }
+
+        # 2. VOS RÈGLES DE RESTRICTION PAR RÔLE
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/gestionnaire, roles: [ROLE_GESTIONNAIRE, ROLE_ADMIN] }
+        - { path: ^/bloc, roles: [ROLE_BLOC, ROLE_ADMIN] }
+        - { path: ^/poulailler, roles: [ROLE_POULAILLER, ROLE_ADMIN] }
+        - { path: ^/salle, roles: [ROLE_SALLE, ROLE_ADMIN] }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

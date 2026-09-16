@@ -11,36 +11,84 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('agreeTerms', CheckboxType::class, [
-                                'mapped' => false,
+            ->add('nom', TextType::class, [
+                'label' => 'Nom complet',
+                'attr' => [
+                    'placeholder' => 'ex: Marc Yoba',
+                    'class' => 'form-control',
+                ],
                 'constraints' => [
-                    new IsTrue(
-                        message: 'You should agree to our terms.',
-                    ),
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre nom.',
+                    ]),
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'Adresse Email',
+                'attr' => [
+                    'placeholder' => 'nom@exemple.com',
+                    'class' => 'form-control',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir une adresse email.',
+                    ]),
+                ],
+            ])
+            ->add('telephone', TelType::class, [
+                'label' => 'Numéro de téléphone',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'ex: 699000000',
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('adresse', TextType::class, [
+                'label' => 'Adresse / Ville',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'ex: Douala, Cameroun',
+                    'class' => 'form-control',
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
-                                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+                'label' => 'Mot de passe',
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    'placeholder' => '••••••••',
+                    'class' => 'form-control',
+                ],
                 'constraints' => [
-                    new NotBlank(
-                        message: 'Please enter a password',
-                    ),
-                    new Length(
-                        min: 6,
-                        minMessage: 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        max: 4096,
-                    ),
+                    new NotBlank([
+                        'message' => 'Veuillez entrer un mot de passe.',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Votre mot de passe doit comporter au moins {{ limit }} caractères.',
+                        'max' => 4096,
+                    ]),
+                ],
+            ])
+            ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'J\'accepte les conditions d\'utilisation',
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'form-check-input',
+                ],
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'Vous devez accepter nos conditions d\'utilisation.',
+                    ]),
                 ],
             ])
         ;

@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Utilisateurs & Rôles{% endblock %}
+
+{% block body %}
+{% include "navbar.html.twig" %}
+
+<div class="container-fluid px-4 mt-4">
+    {# Messages de confirmation #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label == 'warning' ? 'warning' : (label == 'danger' ? 'danger' : 'success') }} alert-dismissible fade show shadow-sm" role="alert">
+                <i class="fas fa-info-circle me-2"></i>{{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="card shadow-lg border-0" style="border-radius: 12px; overflow: hidden;">
+        <div class="card-header d-flex justify-content-between align-items-center py-3" style="background-color: #0F172A; border-bottom: 3px solid #D4AF37;">
+            <h5 class="mb-0 text-white font-weight-bold">
+                <i class="fas fa-users-cog me-2" style="color: #D4AF37;"></i>Gestion des Accès & Permis
+            </h5>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">#</th>
+                            <th>Nom</th>
+                            <th>Téléphone</th>
+                            <th>Email</th>
+                            <th>Rôles Attribués</th>
+                            <th class="text-end pe-4">Gérer les Rôles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td class="ps-4 text-muted">#{{ user.id }}</td>
+                                <td class="fw-bold text-dark">{{ user.nom }}</td>
+                                <td>{{ user.telephone ?? '-' }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>
+                                    {% for role in user.roles %}
+                                        {% if role == 'ROLE_ADMIN' %}
+                                            <span class="badge bg-danger"><i class="fas fa-user-shield me-1"></i>ADMIN</span>
+                                        {% elseif role == 'ROLE_GESTIONNAIRE' %}
+                                            <span class="badge bg-primary">GESTIONNAIRE</span>
+                                        {% elseif role == 'ROLE_BLOC' %}
+                                            <span class="badge bg-info text-dark">BLOC</span>
+                                        {% elseif role == 'ROLE_POULAILLER' %}
+                                            <span class="badge bg-warning text-dark">POULAILLER</span>
+                                        {% elseif role == 'ROLE_SALLE' %}
+                                            <span class="badge bg-success">SALLE</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td class="text-end pe-4">
+                                    {# Menu déroulant d'attribution / retrait des rôles #}
+                                    <div class="dropdown d-inline-block">
+                                        <button class="btn btn-sm text-white font-weight-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" style="background-color: #0F172A; border: 1px solid #D4AF37;">
+                                            <i class="fas fa-key me-1" style="color: #D4AF37;"></i> Modifier Accès
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                                            {% set available_roles = {
+                                                'ROLE_ADMIN': 'Admin',
+                                                'ROLE_GESTIONNAIRE': 'Gestionnaire',
+                                                'ROLE_BLOC': 'Bloc',
+                                                'ROLE_POULAILLER': 'Poulailler',
+                                                'ROLE_SALLE': 'Salle'
+                                            } %}
+
+                                            {% for role_code, role_label in available_roles %}
+                                                <li>
+                                                    <form method="post" action="{{ path('app_user_toggle_role', {'id': user.id, 'role': role_code}) }}">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('toggle_role_' ~ user.id ~ '_' ~ role_code) }}">
+                                                        <button type="submit" class="dropdown-item d-flex justify-content-between align-items-center">
+                                                            <span>{{ role_label }}</span>
+                                                            {% if role_code in user.roles %}
+                                                                <i class="fas fa-check-circle text-success ms-2" title="Accès accordé"></i>
+                                                            {% else %}
+                                                                <i class="far fa-circle text-muted ms-2" title="Accès non accordé"></i>
+                                                            {% endif %}
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                    {# Actions CRUD secondaires #}
+                                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-sm btn-outline-primary ms-1" title="Modifier l'utilisateur">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

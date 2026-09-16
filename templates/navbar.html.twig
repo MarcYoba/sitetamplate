@@ -1,0 +1,152 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">
+            <i class="fas fa-home me-1"></i> Home
+          </a>
+        </li>
+
+        {# ==================== BIENS IMMOBILIERS ==================== #}
+        <li class="nav-item dropdown mega-dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdownBiens" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-building me-1"></i> fonctionalite 1
+          </a>
+          <div class="dropdown-menu mega-menu p-3" aria-labelledby="dropdownBiens" style="min-width: 32rem;">
+            <div class="row g-4">
+              
+              
+            </div>
+          </div>
+        </li>
+
+        {# ==================== LOCATAIRES & CONTRATS ==================== #}
+        <li class="nav-item dropdown mega-dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdownLocatairesContrats" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-users me-1"></i> fonctionalite 2 &amp; autre
+          </a>
+          <div class="dropdown-menu mega-menu p-3" aria-labelledby="dropdownLocatairesContrats" style="min-width: 32rem;">
+            <div class="row g-4">
+              
+              
+            </div>
+          </div>
+        </li>
+
+        {# ==================== PAIEMENTS ==================== #}
+        <li class="nav-item dropdown mega-dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdownPaiements" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-hand-holding-usd me-1"></i> fonctionalite 3
+          </a>
+          <div class="dropdown-menu mega-menu p-3" aria-labelledby="dropdownPaiements" style="min-width: 20rem;">
+            <div class="row g-4">
+              
+              
+            </div>
+          </div>
+        </li>
+
+        {# ==================== IMPAYÉS ==================== #}
+        <li class="nav-item dropdown mega-dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdownImpayes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-exclamation-triangle me-1"></i> fonctionalite 4
+          </a>
+          <div class="dropdown-menu mega-menu p-3" aria-labelledby="dropdownImpayes" style="min-width: 20rem;">
+            <div class="row g-4">
+              
+            </div>
+          </div>
+        </li>
+
+        {# ==================== AGRICULTURE ==================== #}
+        <li class="nav-item dropdown mega-dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdownAgriculture" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-seedling me-1"></i> fonctionalite 5
+          </a>
+          <div class="dropdown-menu mega-menu p-3" aria-labelledby="dropdownAgriculture" style="min-width: 32rem;">
+            <div class="row g-4">
+              
+              
+              
+            </div>
+          </div>
+        </li>
+
+        {# ==================== ÉLEVAGE ==================== #}
+        <li class="nav-item dropdown mega-dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdownElevage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-egg me-1"></i> fonctionalite 6
+          </a>
+          <div class="dropdown-menu mega-menu p-3" aria-labelledby="dropdownElevage" style="min-width: 20rem;">
+            <div class="row g-4">
+              <div class="col-12">
+                <h6 class="dropdown-header"><i class="fas fa-egg me-1"></i> Incubation</h6>
+                
+              </div>
+            </div>
+          </div>
+        </li>
+
+        {# ==================== Employés ==================== #}
+        <li class="nav-item dropdown mega-dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdownElevage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-users me-1"></i> Employés
+          </a>
+          <div class="dropdown-menu mega-menu p-3" aria-labelledby="dropdownElevage" style="min-width: 20rem;">
+            <div class="row g-4">
+              <div class="col-12">
+                <h6 class="dropdown-header"><i class="fas fa-users me-1"></i>Employés</h6>
+                
+              </div>
+              <div class="col-12">
+                <h6 class="dropdown-header"><i class="fas fa-users me-1"></i>Salaire</h6>
+                
+              </div>
+            </div>
+          </div>
+        </li>
+
+        {# ==================== STATISTIQUES ==================== #}
+        <li class="nav-item dropdown mega-dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdownStats" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-chart-line me-1"></i> Statistiques
+          </a>
+          <div class="dropdown-menu mega-menu p-3" aria-labelledby="dropdownStats" style="min-width: 20rem;">
+            <div class="row g-4">
+              
+            </div>
+          </div>
+        </li>
+
+        {% if "ROLE_ADMIN" in app.user.roles %}
+        {# ==================== ADMINISTRATION ==================== #}
+        <li class="nav-item dropdown mega-dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user-shield me-1"></i> Administration
+          </a>
+          <div class="dropdown-menu mega-menu p-3" aria-labelledby="dropdownAdmin" style="min-width: 24rem;">
+            <div class="row g-4">
+              <div class="col-lg-6 col-sm-6 mb-3 mb-lg-0">
+                <h6 class="dropdown-header"><i class="fas fa-users-cog me-1"></i> Comptes</h6>
+                <a class="dropdown-item" href="{{ path('app_register') }}">Créer un compte</a>
+                <a class="dropdown-item" href="{{ path('app_user_list') }}">Liste utilisateurs</a>
+              </div>
+              <div class="col-lg-6 col-sm-6 mb-3 mb-lg-0">
+                <h6 class="dropdown-header"><i class="fas fa-power-off me-1"></i> Session</h6>
+                <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        {% endif %}
+
+      </ul>
+    </div>
+  </div>
+</nav>

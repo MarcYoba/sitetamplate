@@ -1,0 +1,54 @@
+{# templates/error/access_denied.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0">🚫 Accès Refusé - Code 403</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <h4 class="alert-heading">⛔ Vous n'avez pas accès à cette ressource</h4>
+                        <p>Vos rôles utilisateur actuels ne vous permettent pas d'accéder à cette page.</p>
+                    </div>
+                    
+                    <div class="card bg-light mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Informations de debug :</h5>
+                            <ul class="list-unstyled">
+                                <li><strong>📧 Email :</strong> {{ user.email|default('Non connecté') }}</li>
+                                <li><strong>👤 Rôles actuels :</strong> 
+                                    <span class="badge bg-info">
+                                    {% for item in user.roles %}
+                                        {{ item|default('Aucun') }}
+                                    {% endfor %} 
+                                    </span>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="$" class="btn btn-primary">
+                            🏠 Retour à l'accueil
+                        </a>
+                        <a href="javascript:history.back()" class="btn btn-secondary">
+                            ↩️ Page précédente
+                        </a>
+                        
+                        <a href="{{ path('app_logout') }}" class="btn btn-danger">
+                            🔓 Se déconnecter
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
